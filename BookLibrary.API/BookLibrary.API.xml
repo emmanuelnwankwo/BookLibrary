@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BookLibrary.API</name>
+    </assembly>
+    <members>
+        <member name="M:BookLibrary.API.Controllers.BookController.AddBook(BookLibrary.API.Models.AddBookRequest)">
+            <summary>
+            Add new book to library collection
+            </summary>
+            <param name="request"></param>
+            <returns>success</returns>
+        </member>
+        <member name="M:BookLibrary.API.Controllers.BookController.ReserveBooks(BookLibrary.API.Models.ReserveBookRequest)">
+            <summary>
+            Reserve a book of interest from library collection
+            </summary>
+            <param name="request"></param>
+            <returns>success</returns>
+        </member>
+        <member name="M:BookLibrary.API.Controllers.BookController.BorrowBook(BookLibrary.API.Models.BorrowBookRequest)">
+            <summary>
+            Borrows a book from library collection
+            </summary>
+            <param name="request"></param>
+            <returns>success</returns>
+        </member>
+        <member name="M:BookLibrary.API.Controllers.BookController.ReturnBook(BookLibrary.API.Models.ReturnBookRequest)">
+            <summary>
+            Return a borrowed book
+            </summary>
+            <param name="request"></param>
+            <returns>success</returns>
+        </member>
+        <member name="P:BookLibrary.API.Models.AddBookRequest.Title">
+            <summary>
+            Book unique title
+            </summary>
+            <example>The Psychology of Money</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.AddBookRequest.Description">
+            <summary>
+            Short description of the book
+            </summary>
+            <example>Doing well with money isn't necessarily about what you know. It's about how you behave. And behavior is hard to teach, even to really smart people. Money--investing, personal finance, and business decisions--is typically taught as a math-based field, where data and formulas tell us exactly what to do. But in the real world people don't make financial decisions on a spreadsheet. They make them at the dinner table, or in a meeting room, where personal history, your own unique view of the world, ego, pride, marketing, and odd incentives are scrambled together. In The Psychology of Money, award-winning author Morgan Housel shares 19 short stories exploring the strange ways people think about money and teaches you how to make better sense of one of life's most important topics.</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.AddBookRequest.Authors">
+            <summary>
+            Book author(s) name
+            </summary>
+            <example>Morgan Housel</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.AddBookRequest.CoverPictureUrl">
+            <summary>
+            Book cover image URL
+            </summary>
+            <example>https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1581527774i/41881472.jpg</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.AddBookRequest.Genre">
+            <summary>
+            Book genre
+            </summary>
+            <example>0</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.AddBookRequest.DatePublished">
+            <summary>
+            Book published date
+            </summary>
+            <example>2020-01-01</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.BorrowBookRequest.BookId">
+            <summary>
+            Book unique ID
+            </summary>
+            <example>6e7d48d6-8dd1-494f-a03e-60a698f71b72</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.BorrowBookRequest.Email">
+            <summary>
+            Customer email address
+            </summary>
+            <example>test@gmail.com</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.BorrowBookRequest.ReturnDate">
+            <summary>
+            Expected book return date
+            </summary>
+            <example>2024-09-24</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.ReserveBookRequest.BookId">
+            <summary>
+            Book unique ID
+            </summary>
+            <example>6e7d48d6-8dd1-494f-a03e-60a698f71b72</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.ReturnBookRequest.BookId">
+            <summary>
+            Book unique ID
+            </summary>
+            <example>6e7d48d6-8dd1-494f-a03e-60a698f71b72</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.ReturnBookRequest.Email">
+            <summary>
+            Customer email address
+            </summary>
+            <example>test@gmail.com</example>
+        </member>
+    </members>
+</doc>
