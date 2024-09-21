@@ -40,7 +40,7 @@ Book Library is hosted on Render at [Docs](https://booklibrary-pla2.onrender.com
 ```bash
     dotnet run
 ```
-6. Access the API documentation at http://localhost:<PORT>/swagger to interact with the API.
+6. Access the API documentation at http://localhost:5480/swagger/index.html to interact with the API.
 
 ### Running the Project with Docker
 You can also run the project using Docker and docker-compose. Follow these steps:
@@ -49,8 +49,8 @@ You can also run the project using Docker and docker-compose. Follow these steps
 ```bash
 $ docker-compose up --build
 ```
-3. The API will be available at http://localhost:<PORT> and PostgreSQL will run within the container as the database.
-4. Access the API documentation at http://localhost:<PORT>/swagger to interact with the API.
+3. The API will be available at http://localhost:8080 and PostgreSQL will run within the container as the database.
+4. Access the API documentation at http://localhost:8080/swagger/index.html to interact with the API.
 
 ## Environment Variables
 The following environment variables are used in docker-compose.yml for database connectivity:

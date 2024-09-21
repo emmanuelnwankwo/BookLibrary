@@ -1,5 +1,4 @@
-﻿using BookLibrary.Domain.DTOs;
-using BookLibrary.Infrastructure;
+﻿using BookLibrary.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using static BookLibrary.Domain.Shared.Enums;
 
@@ -8,7 +7,7 @@ namespace BookLibrary.API.Services.BackgroundJob
     public class BookBackgroundService : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly TimeSpan _checkInterval = TimeSpan.FromMinutes(5);
+        private readonly TimeSpan _checkInterval = TimeSpan.FromMinutes(10);
 
         public BookBackgroundService(IServiceProvider serviceProvider)
         {
@@ -31,35 +30,26 @@ namespace BookLibrary.API.Services.BackgroundJob
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<EFContext>();
 
-                // Fetch books that are no longer reserved or borrowed
-                //var availableBooks = await dbContext.Book
-                //    .Where(b => b.Status == BookStatus.Available && b.Reservations.Any())
-                //    .ToListAsync(cancellationToken);
+                var pendingNotification = await dbContext.Notification
+                    .Where(x => !x.IsSent).ToListAsync(cancellationToken);
 
-                //foreach (var book in availableBooks)
-                //{
-                //    var userToNotify = book.Reservations.Select(r => r.CustomerEmail).ToList();
+                foreach (var pending in pendingNotification)
+                {
+                    var availableBookList = await dbContext.BookRecord
+                        .Where(x => x.BookId == pending.BookId && x.Status == BookStatus.Return).ToListAsync(cancellationToken);
 
-                //    foreach (var email in userToNotify)
-                //    {
-                //        var notificationDto = new NotificationDto
-                //        {
-                //            BookId = book.Id,
-                //            UserEmail = email,
-                //            NotificationDate = DateTime.UtcNow,
-                //            IsSent = false
-                //        };
-
-                //        dbContext.Notification.Add(notification);
-
-                //        // Remove the reservation since the book is now available
-                //        book.Reservations.Clear();
-                //    }
-                //}
+                    foreach (var email in availableBookList)
+                    {
+                        // FUTURE TODO: Send email notification to users interested in those books
+                        pending.Notified();
+                        dbContext.Notification.Add(pending);
+                    }
+                }
 
                 await dbContext.SaveChangesAsync(cancellationToken);
             }
         }
+
         private async Task CheckForExpiredReservationsAsync(CancellationToken cancellationToken)
         {
             using (var scope = _serviceProvider.CreateScope())
@@ -72,7 +62,7 @@ namespace BookLibrary.API.Services.BackgroundJob
 
                 foreach (var reservations in expiredReservations)
                 {
-                    // FUTURE TODO: Send email notification user interested in those books
+                    // FUTURE TODO: Send email notification to users interested in those books
                     reservations.EndReservation();
                 }
 

@@ -5,13 +5,19 @@ namespace BookLibrary.Domain.Aggregates.NotificationAggregate
 {
     public partial class Notification : IAggregateRoot
     {
-        public Notification Create(NotificationDto notification) 
+        public Notification Create(NotificationDto notification)
         {
             return new Notification
             {
                 UserEmail = notification.UserEmail,
                 BookId = notification.BookId
             };
+        }
+
+        public void Notified()
+        {
+            NotifiedDate = DateTime.UtcNow;
+            IsSent = true;
         }
     }
 }

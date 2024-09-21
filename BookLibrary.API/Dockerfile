@@ -10,7 +10,7 @@ EXPOSE 8081
 # Set build argument
 ARG DB_CONNECTION_STRING
 
-# Environment variable for DefaultConnection
+# Environment variable for DB_CONNECTION_STRING
 ENV ConnectionStrings__BookLibraryDb=$DB_CONNECTION_STRING
 
 

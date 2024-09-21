@@ -16,6 +16,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace BookLibrary.API.Extensions
 {
@@ -40,6 +41,7 @@ namespace BookLibrary.API.Extensions
 
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
+            var rr = configuration.GetConnectionString("BookLibraryDb");
             return services.AddDbContext<EFContext>(options =>
                      options.UseNpgsql(configuration.GetConnectionString("BookLibraryDb")));
         }
@@ -83,10 +85,20 @@ namespace BookLibrary.API.Extensions
         {
             return services.Configure<GeneralConfig>(configuration.GetSection("GeneralConfig"));
         }
-        
+
         public static IServiceCollection AddBackgroundService(this IServiceCollection services)
         {
-           return services.AddHostedService<BookBackgroundService>();
+            return services.AddHostedService<BookBackgroundService>();
+        }
+
+        public static IConfigurationBuilder AddEnvironment(this WebApplicationBuilder builder)
+        {
+            var environment = builder.Environment;
+            return builder.Configuration
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                     .AddEnvironmentVariables();
         }
 
     }

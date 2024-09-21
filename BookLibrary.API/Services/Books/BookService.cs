@@ -138,16 +138,21 @@ namespace BookLibrary.API.Services.Books
             await _bookRepository.UpdateAsync(book);
             await _bookRecordRepository.UpdateAsync(bookRecord);
             await _bookRecordRepository.SaveChangesAsync();
-
-            // TODO: add notification
         }
-        
+
         public async Task NotifyAboutBook(NotifyBookRequest request, Guid userId, string userEmail)
         {
             var notificationRecord = await _notificationRepository.GetAsync(x => x.BookId == request.BookId && x.UserEmail == userEmail && !x.IsSent);
             if (notificationRecord != null)
             {
-                throw new ArgumentNullException("You have already requested to be notified for the book!");
+                throw new ArgumentException("You have already requested to be notified for the book!");
+            }
+
+            var book = await _bookRepository.GetAsync(x => x.Id == request.BookId && x.Status == BookStatus.Available);
+
+            if (book != null)
+            {
+                throw new ArgumentException($"'{book.Title}' is available. Please make a reservation");
             }
 
             var notificationInst = new Notification();
