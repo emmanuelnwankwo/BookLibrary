@@ -15,7 +15,7 @@ jobs:
     
     steps: 
       - name: Deploy to production
-        uses: enwankwo/booklibraryapi:latest
+        uses: enwankwo/booklibraryapi@latest
         with:
            service-id: ${{ secrets.RENDER_SERVICE_ID }}
            api-key: ${{ secrets.RENDER_API_KEY }}
