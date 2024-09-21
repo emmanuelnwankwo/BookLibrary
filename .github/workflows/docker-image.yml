@@ -27,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./directory/Dockerfile 
+          file: ./BookLibrary.API/Dockerfile 
           push: true
           tags: dockerhub-username/new-repo:tagname
