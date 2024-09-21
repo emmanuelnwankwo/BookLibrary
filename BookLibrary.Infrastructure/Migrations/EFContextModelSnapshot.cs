@@ -110,6 +110,36 @@ namespace BookLibrary.Infrastructure.Migrations
                     b.ToTable("BookRecords");
                 });
 
+            modelBuilder.Entity("BookLibrary.Domain.Aggregates.NotificationAggregate.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsSent")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("NotifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("BookLibrary.Domain.Aggregates.ReservationAggregate.Reservation", b =>
                 {
                     b.Property<Guid>("Id")

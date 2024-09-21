@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookLibrary.Infrastructure.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20240920211238_InitialCreate")]
+    [Migration("20240921203324_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -111,6 +111,36 @@ namespace BookLibrary.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BookRecords");
+                });
+
+            modelBuilder.Entity("BookLibrary.Domain.Aggregates.NotificationAggregate.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsSent")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("NotifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("BookLibrary.Domain.Aggregates.ReservationAggregate.Reservation", b =>

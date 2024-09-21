@@ -32,6 +32,23 @@ namespace BookLibrary.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserEmail = table.Column<string>(type: "text", nullable: false),
+                    NotifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    IsSent = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -146,6 +163,9 @@ namespace BookLibrary.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "BookRecords");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "Reservations");
