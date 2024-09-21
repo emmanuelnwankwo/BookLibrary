@@ -23,7 +23,7 @@ namespace BookLibrary.API.Controllers
         /// <param name="request"></param>
         /// <returns>success</returns>
         [HttpPost, AllowAnonymous]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]

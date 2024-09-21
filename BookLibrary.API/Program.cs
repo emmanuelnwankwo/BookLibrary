@@ -76,6 +76,7 @@ namespace BookLibrary.API
                     }
                 ));
             builder.Services.AddSwagger();
+            builder.Services.AddBackgroundService();
 
 
             var app = builder.Build();

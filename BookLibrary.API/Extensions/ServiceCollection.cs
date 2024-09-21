@@ -1,9 +1,11 @@
 ﻿using BookLibrary.API.Models;
 using BookLibrary.API.Models.Users;
+using BookLibrary.API.Services.BackgroundJob;
 using BookLibrary.API.Services.Books;
 using BookLibrary.API.Services.Users;
 using BookLibrary.Domain.Aggregates.BookAggregate;
 using BookLibrary.Domain.Aggregates.BookRecordAggregate;
+using BookLibrary.Domain.Aggregates.NotificationAggregate;
 using BookLibrary.Domain.Aggregates.ReservationAggregate;
 using BookLibrary.Domain.Aggregates.UserAggregate;
 using BookLibrary.Domain.SeedWork;
@@ -12,9 +14,7 @@ using BookLibrary.Infrastructure;
 using BookLibrary.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace BookLibrary.API.Extensions
@@ -28,7 +28,8 @@ namespace BookLibrary.API.Extensions
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IBookRepository, BookRepository>()
                 .AddScoped<IReservationRepository, ReservationRepository>()
-                .AddScoped<IBookRecordRepository, BookRecordRepository>();
+                .AddScoped<IBookRecordRepository, BookRecordRepository>()
+                .AddScoped<INotificationRepository, NotificationRepository>();
         }
 
         //public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
@@ -62,7 +63,6 @@ namespace BookLibrary.API.Extensions
                         Version = "v1",
                         Contact = new OpenApiContact { Name = "Book" }
                     });
-                    //c.AddFluentValidationRules();
                     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BookLibrary.Api.xml"));
                 });
         }
@@ -81,6 +81,11 @@ namespace BookLibrary.API.Extensions
         public static IServiceCollection AddAppSetting(this IServiceCollection services, IConfiguration configuration)
         {
             return services.Configure<GeneralConfig>(configuration.GetSection("GeneralConfig"));
+        }
+        
+        public static IServiceCollection AddBackgroundService(this IServiceCollection services)
+        {
+           return services.AddHostedService<BookBackgroundService>();
         }
 
     }

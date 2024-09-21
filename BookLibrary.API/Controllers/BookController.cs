@@ -27,7 +27,7 @@ namespace BookLibrary.API.Controllers
         /// <param name="request"></param>
         /// <returns>success</returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]
@@ -35,7 +35,7 @@ namespace BookLibrary.API.Controllers
         public async Task<IActionResult> AddBook([FromBody] AddBookRequest request)
         {
             var book = await _bookService.AddBook(request.Validate());
-            return Ok(new ServiceResponse<Book>("successfully added new book to library collection") { Data = book});
+            return Ok(new ServiceResponse<Book>("Successfully added new book to library collection") { Data = book});
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace BookLibrary.API.Controllers
         /// <param name="request"></param>
         /// <returns>success</returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]
@@ -95,7 +95,7 @@ namespace BookLibrary.API.Controllers
         /// <param name="request"></param>
         /// <returns>success</returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]

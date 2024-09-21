@@ -25,7 +25,7 @@ namespace BookLibrary.API.Services.Users
         public async Task<LoginResponse> Login(LoginRequest request)
         {
             var user = await _userRepository.GetAsync(x => x.Email == request.Email);
-            if (user == null) throw new ArgumentException("Incorrect email or password");
+            if (user == null) throw new ArgumentNullException("Incorrect email or password");
 
             var isCorrect = user.VerifyPassword(request.Password);
             if (!isCorrect) throw new ArgumentException("Incorrect email or password");

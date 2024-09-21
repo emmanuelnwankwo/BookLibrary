@@ -1,8 +1,8 @@
 ﻿using BookLibrary.Domain.Aggregates.BookAggregate;
 using BookLibrary.Domain.Aggregates.BookRecordAggregate;
+using BookLibrary.Domain.Aggregates.NotificationAggregate;
 using BookLibrary.Domain.Aggregates.ReservationAggregate;
 using BookLibrary.Domain.Aggregates.UserAggregate;
-using BookLibrary.Domain.DTOs;
 using BookLibrary.Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
@@ -15,6 +15,7 @@ namespace BookLibrary.Infrastructure
         public DbSet<User> User { get; set; }
         public DbSet<Reservation> Reservation { get; set; }
         public DbSet<BookRecord> BookRecord { get; set; }
+        public DbSet<Notification> Notification { get; set; }
 
         public EFContext(DbContextOptions<EFContext> options) : base(options)
         {
