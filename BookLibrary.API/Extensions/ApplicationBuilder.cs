@@ -17,16 +17,16 @@ namespace BookLibrary.API.Extensions
         {
             using var scope = app.Services.CreateScope();
             using EFContext eFContext = scope.ServiceProvider.GetService<EFContext>();
-            var pendingMigrations = eFContext.Database.GetPendingMigrations();
+            //var pendingMigrations = eFContext.Database.GetPendingMigrations();
 
-            if (pendingMigrations.Any())
-            {
-                eFContext.Database.Migrate();
-            }
-            else
-            {
-                Console.WriteLine("No pending migrations.");
-            }
+            //if (pendingMigrations.Any())
+            //{
+            //    eFContext.Database.Migrate();
+            //}
+            //else
+            //{
+            //    Console.WriteLine("No pending migrations.");
+            //}
         }
     }
 }
