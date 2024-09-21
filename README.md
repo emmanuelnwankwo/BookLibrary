@@ -1,6 +1,4 @@
-<p align="center">
-  <h2>Book Library API</h2>
-</p>
+# Book Library API
 
 
 ## Description
@@ -22,7 +20,7 @@ The Book Library API provides local library automate the process of managing boo
 - Notification System: Database-persisted notifications for book availability
 
 ## Documentation
-Book Library is hosted on Render at [Docs](https://booklibrary-pla2.onrender.com). This documentation provides more detailed information about the API, including how to use it, what data it provides, and any other features or requirements.
+Book Library API is hosted on Render at [Docs](https://booklibrary-1-2twv.onrender.com/swagger/index.html). This documentation provides more detailed information about the API, including how to use it, what data it provides, and any other features or requirements.
 
 ## Installation and Setup
 ### Running the Project Locally

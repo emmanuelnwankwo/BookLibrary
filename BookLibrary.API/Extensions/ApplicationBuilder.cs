@@ -18,7 +18,7 @@ namespace BookLibrary.API.Extensions
             using var scope = app.Services.CreateScope();
             using EFContext eFContext = scope.ServiceProvider.GetService<EFContext>();
 
-            //eFContext.Database.Migrate();
+            eFContext.Database.Migrate();
         }
     }
 }
