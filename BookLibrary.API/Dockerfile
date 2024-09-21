@@ -5,6 +5,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
+EXPOSE 8081
 
 
 # This stage is used to build the service project
@@ -15,8 +16,8 @@ COPY ["BookLibrary.API/BookLibrary.API.csproj", "BookLibrary.API/"]
 COPY ["BookLibrary.Domain/BookLibrary.Domain.csproj", "BookLibrary.Domain/"]
 COPY ["BookLibrary.Infrastructure/BookLibrary.Infrastructure.csproj", "BookLibrary.Infrastructure/"]
 RUN dotnet restore "./BookLibrary.API/BookLibrary.API.csproj"
-COPY . .
 WORKDIR "/src/BookLibrary.API"
+COPY . .
 RUN dotnet build "./BookLibrary.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
