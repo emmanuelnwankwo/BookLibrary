@@ -15,7 +15,7 @@ namespace BookLibrary.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.AddEnvironment();
+            //builder.AddEnvironment();
             var jwtIssuer = builder.Configuration.GetSection("GeneralConfig:Jwt:Issuer").Get<string>();
             var jwtKey = builder.Configuration.GetSection("GeneralConfig:Jwt:Key").Get<string>();
             // Add services to the container.
