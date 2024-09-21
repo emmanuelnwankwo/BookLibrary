@@ -3,9 +3,11 @@ using BookLibrary.API.Models;
 using BookLibrary.API.Services.Users;
 using BookLibrary.Domain.Aggregates.BookAggregate;
 using BookLibrary.Domain.Aggregates.BookRecordAggregate;
+using BookLibrary.Domain.Aggregates.NotificationAggregate;
 using BookLibrary.Domain.Aggregates.ReservationAggregate;
 using BookLibrary.Domain.DTOs;
 using BookLibrary.Domain.Shared;
+using BookLibrary.Infrastructure.Repositories;
 using System.Linq.Expressions;
 using static BookLibrary.Domain.Shared.Enums;
 
@@ -17,15 +19,18 @@ namespace BookLibrary.API.Services.Books
         private readonly IReservationRepository _reservationRepository;
         private readonly IBookRecordRepository _bookRecordRepository;
         private readonly IUserService _userService;
+        private readonly INotificationRepository _notificationRepository;
         public BookService(ILogger<BookService> logger, IMapper mapper, 
             IBookRepository bookRepository, IReservationRepository reservationRepository,
-            IBookRecordRepository bookRecordRepository, IUserService userService) 
+            IBookRecordRepository bookRecordRepository, IUserService userService,
+            INotificationRepository notificationRepository) 
             : base(logger, mapper)
         {
             _bookRepository = bookRepository;
             _reservationRepository = reservationRepository;
             _bookRecordRepository = bookRecordRepository;
             _userService = userService;
+            _notificationRepository = notificationRepository;
         }
 
         public async Task<Book> AddBook(AddBookRequest request)
@@ -135,6 +140,26 @@ namespace BookLibrary.API.Services.Books
             await _bookRecordRepository.SaveChangesAsync();
 
             // TODO: add notification
+        }
+        
+        public async Task NotifyAboutBook(NotifyBookRequest request, Guid userId, string userEmail)
+        {
+            var notificationRecord = await _notificationRepository.GetAsync(x => x.BookId == request.BookId && x.UserEmail == userEmail && !x.IsSent);
+            if (notificationRecord != null)
+            {
+                throw new ArgumentNullException("You have already requested to be notified for the book!");
+            }
+
+            var notificationInst = new Notification();
+            var notificationDto = new NotificationDto
+            {
+                UserEmail = userEmail,
+                BookId = request.BookId,
+            };
+            var notification = notificationInst.Create(notificationDto);
+
+            await _notificationRepository.InsertAsync(notification);
+            await _notificationRepository.SaveChangesAsync();
         }
 
         private async Task<Book> GetBookById(Guid id)

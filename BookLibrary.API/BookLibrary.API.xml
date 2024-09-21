@@ -53,6 +53,13 @@
             <param name="request"></param>
             <returns>success</returns>
         </member>
+        <member name="M:BookLibrary.API.Controllers.BookController.Notify(BookLibrary.API.Models.NotifyBookRequest)">
+            <summary>
+            Notify when a book becomes available
+            </summary>
+            <param name="request"></param>
+            <returns>success</returns>
+        </member>
         <member name="M:BookLibrary.API.Controllers.UserController.CreateUser(BookLibrary.API.Models.Users.AddUserRequest)">
             <summary>
             Create new user data
@@ -113,6 +120,12 @@
             Expected book return date
             </summary>
             <example>2024-09-24</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.NotifyBookRequest.BookId">
+            <summary>
+            Book unique ID
+            </summary>
+            <example>6e7d48d6-8dd1-494f-a03e-60a698f71b72</example>
         </member>
         <member name="P:BookLibrary.API.Models.PaginationQuery.PageSize">
             <summary>

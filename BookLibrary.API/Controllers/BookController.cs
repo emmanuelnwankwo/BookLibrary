@@ -105,6 +105,23 @@ namespace BookLibrary.API.Controllers
             await _bookService.ReturnBook(request.Validate());
             return Ok(new ServiceResponse("Book is now available to be reserved and borrowed by another user"));
         }
+        
+        /// <summary>
+        /// Notify when a book becomes available
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>success</returns>
+        [HttpPost]
+        [Authorize(Roles = "User")]
+        [ProducesResponseType(200, Type = typeof(ServiceResponse))]
+        [ProducesResponseType(400, Type = typeof(ServiceResponse))]
+        [ProducesResponseType(404, Type = typeof(ServiceResponse))]
+        [ProducesResponseType(500, Type = typeof(ServiceResponse))]
+        public async Task<IActionResult> Notify([FromBody] NotifyBookRequest request)
+        {
+            await _bookService.NotifyAboutBook(request.Validate(), UserId, Email);
+            return Ok(new ServiceResponse("You will be notify when the book becomes available via email"));
+        }
 
     }
 }

@@ -11,6 +11,7 @@ namespace BookLibrary.API.Services.Books
         Task<Book> AddBook(AddBookRequest request);
         Task BorrowBook(BorrowBookRequest request);
         Task<PaginatedList<BookDto>> GetBooks(PaginationQuery query);
+        Task NotifyAboutBook(NotifyBookRequest request, Guid userId, string userEmail);
         Task ReserveBook(ReserveBookRequest request, Guid userId);
         Task ReturnBook(ReturnBookRequest request);
     }

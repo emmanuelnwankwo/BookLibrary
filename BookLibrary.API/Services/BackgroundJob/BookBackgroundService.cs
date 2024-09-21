@@ -1,5 +1,6 @@
 ﻿using BookLibrary.Domain.DTOs;
 using BookLibrary.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using static BookLibrary.Domain.Shared.Enums;
 
 namespace BookLibrary.API.Services.BackgroundJob
@@ -7,7 +8,7 @@ namespace BookLibrary.API.Services.BackgroundJob
     public class BookBackgroundService : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly TimeSpan _checkInterval = TimeSpan.FromMinutes(5); 
+        private readonly TimeSpan _checkInterval = TimeSpan.FromMinutes(5);
 
         public BookBackgroundService(IServiceProvider serviceProvider)
         {
@@ -19,6 +20,7 @@ namespace BookLibrary.API.Services.BackgroundJob
             while (!stoppingToken.IsCancellationRequested)
             {
                 await CheckForAvailableBooksAsync(stoppingToken);
+                await CheckForExpiredReservationsAsync(stoppingToken);
                 await Task.Delay(_checkInterval, stoppingToken); // Wait for the next interval
             }
         }
@@ -58,5 +60,25 @@ namespace BookLibrary.API.Services.BackgroundJob
                 await dbContext.SaveChangesAsync(cancellationToken);
             }
         }
+        private async Task CheckForExpiredReservationsAsync(CancellationToken cancellationToken)
+        {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<EFContext>();
+
+                var expiredReservations = await dbContext.Reservation
+                    .Where(x => x.IsActive && x.ExpiresAt.Date >= DateTime.UtcNow.Date)
+                    .ToListAsync(cancellationToken);
+
+                foreach (var reservations in expiredReservations)
+                {
+                    // FUTURE TODO: Send email notification user interested in those books
+                    reservations.EndReservation();
+                }
+
+                await dbContext.SaveChangesAsync(cancellationToken);
+            }
+        }
+
     }
 }
