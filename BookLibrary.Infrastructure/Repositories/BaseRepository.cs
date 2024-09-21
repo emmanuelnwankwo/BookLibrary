@@ -84,25 +84,9 @@ namespace BookLibrary.Infrastructure.Repositories
             return entities;
         }
 
-        public async Task<PaginatedList<TEntity>> GetAllAsync<T>(int pageIndex, int pageSize, Expression<Func<TEntity, T>> keySelector, OrderBy orderBy = OrderBy.Ascending)
+        public async Task<PaginatedList<TEntity>> GetAllByPaginationAsync<T>(int pageIndex, int pageSize, Expression<Func<TEntity, T>> keySelector, Expression<Func<TEntity, bool>> predicate, OrderBy orderBy = OrderBy.Ascending)
         {
-            return await GetAllAsync(pageIndex, pageSize, keySelector, null, orderBy);
+            return await GetAllAsync(pageIndex, pageSize, keySelector, predicate, orderBy);
         }
-
-        //public async Task<PaginatedList<TEntity>> UpdateAsync(int pageIndex, int pageSize, OrderBy orderBy, Expression<Func<TEntity, object>>[] includeProperties)
-        //{
-
-        //    var entities = IncludeProperties(includeProperties);
-        //    entities = (predicate != null) ? entities.Where(predicate) : entities;
-        //    entities = (orderBy == OrderBy.Ascending)
-        //        ? entities.OrderBy(keySelector)
-        //        : entities.OrderByDescending(keySelector);
-
-
-        //    var total = await entities.CountAsync();
-        //    entities = entities.Paginate(pageIndex, pageSize);
-        //    var list = await entities.ToListAsync();
-        //    return list.ToPaginatedList(pageIndex, pageSize, total);
-        //}
     }
 }

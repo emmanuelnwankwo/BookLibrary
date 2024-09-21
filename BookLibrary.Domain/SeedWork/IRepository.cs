@@ -17,6 +17,6 @@ namespace BookLibrary.Domain.SeedWork
         Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> expression);
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-        Task<PaginatedList<TEntity>> GetAllAsync<T>(int pageIndex, int pageSize, Expression<Func<TEntity, T>> keySelector, Enums.OrderBy orderBy = Enums.OrderBy.Ascending);
+        Task<PaginatedList<TEntity>> GetAllByPaginationAsync<T>(int pageIndex, int pageSize, Expression<Func<TEntity, T>> keySelector, Expression<Func<TEntity, bool>> predicate, Enums.OrderBy orderBy = Enums.OrderBy.Ascending);
     }
 }

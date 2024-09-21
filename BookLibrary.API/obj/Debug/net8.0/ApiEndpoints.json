@@ -118,7 +118,7 @@
   {
     "ContainingType": "BookLibrary.API.Controllers.BookController",
     "Method": "BorrowBook",
-    "RelativePath": "api/Book/BorrowBook/Borrow",
+    "RelativePath": "api/Book/BorrowBook",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -192,7 +192,7 @@
         "IsRequired": false
       },
       {
-        "Name": "Search",
+        "Name": "SearchTerm",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -238,8 +238,8 @@
   },
   {
     "ContainingType": "BookLibrary.API.Controllers.BookController",
-    "Method": "ReserveBooks",
-    "RelativePath": "api/Book/ReserveBooks/Reserve",
+    "Method": "ReserveBook",
+    "RelativePath": "api/Book/ReserveBook",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -292,7 +292,7 @@
   {
     "ContainingType": "BookLibrary.API.Controllers.BookController",
     "Method": "ReturnBook",
-    "RelativePath": "api/Book/ReturnBook/Return",
+    "RelativePath": "api/Book/ReturnBook",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -356,6 +356,43 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 500
+      }
+    ]
   }
 ]

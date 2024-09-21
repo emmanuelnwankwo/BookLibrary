@@ -6,6 +6,7 @@ using BookLibrary.Domain.Aggregates.BookRecordAggregate;
 using BookLibrary.Domain.Aggregates.ReservationAggregate;
 using BookLibrary.Domain.DTOs;
 using BookLibrary.Domain.Shared;
+using System.Linq.Expressions;
 using static BookLibrary.Domain.Shared.Enums;
 
 namespace BookLibrary.API.Services.Books
@@ -30,7 +31,7 @@ namespace BookLibrary.API.Services.Books
         public async Task<Book> AddBook(AddBookRequest request)
         {
             var bookExist = await _bookRepository.GetAsync(x => x.Title == request.Title && x.Authors == request.Authors);
-            if (bookExist != null) throw new Exception("Book already exist in library collection");
+            if (bookExist != null) throw new ArgumentNullException("Book already exist in library collection");
 
             var bookInst = new Book();
             var bookDto = _mapper.Map<BookDto>(request);
@@ -42,7 +43,13 @@ namespace BookLibrary.API.Services.Books
 
         public async Task<PaginatedList<BookDto>> GetBooks(PaginationQuery query)
         {
-            var bookList = await _bookRepository.GetAllAsync(query.PageIndex, query.PageSize, x => x.Title, query.OrderBy);
+            Expression<Func<Book, bool>>? predicate = null;
+            if (!string.IsNullOrEmpty(query.SearchTerm))
+            {
+                predicate = s => s.Title.ToLower().Contains(query.SearchTerm.ToLower());
+            }
+
+            var bookList = await _bookRepository.GetAllByPaginationAsync(query.PageIndex, query.PageSize, x => x.Title, predicate, query.OrderBy);
             var books = _mapper.Map<PaginatedList<BookDto>>(bookList);
             return books;
         }
@@ -76,24 +83,25 @@ namespace BookLibrary.API.Services.Books
         public async Task BorrowBook(BorrowBookRequest request)
         {
             var book = await GetBookById(request.BookId);
-            var reservation = await _reservationRepository.GetAsync(x =>x.Id == request.BookId && x.IsActive);
+            var reservation = await _reservationRepository.GetAsync(x =>x.BookId == request.BookId && x.IsActive);
             var user = await _userService.GetUserByEmail(request.Email);
 
-            if (book.Status == BookStatus.Reserved)
+            if (book.Status == BookStatus.Available)
             {
-                if (reservation == null)
-                {
-                    throw new ArgumentNullException($"{user.Name} did not made a reservation for the book");
-                }
-                throw new ArgumentException($"Book has been {book.Status}");
+                throw new ArgumentException($"{user.Name} did not made a reservation for the book");
+            }
+
+            if (book.Status == BookStatus.Reserved && reservation == null)
+            {
+                throw new ArgumentException($"The book was reserved by another user");
             }
 
             if (book.Status == BookStatus.Borrowed)
             {
-                var record = await _bookRecordRepository.GetAsync(x => x.Id == request.BookId);
+                var record = await _bookRecordRepository.GetAsync(x => x.BookId == request.BookId);
                 throw new ArgumentException($"Book selected book is currently {nameof(BookStatus.Borrowed)}. It will be available on {record.ExpectedReturnDate.ToString("ddd-MMM-yyyy")}");
             }
-
+            reservation.EndReservation();
             book.BorrowBook();
             var bookRecordInst = new BookRecord();
             var bookRecord = bookRecordInst.CreateRecord(user.Id, request.BookId, request.ReturnDate);
@@ -114,12 +122,19 @@ namespace BookLibrary.API.Services.Books
             }
             var user = await _userService.GetUserByEmail(request.Email);
             var bookRecord = await _bookRecordRepository.GetAsync(x => x.BookId == request.BookId && x.UserId == user.Id && x.Status == BookStatus.Borrowed);
+            if (bookRecord == null)
+            {
+                throw new ArgumentNullException("Book not part of customer borrowed collection");
+            }
+
             bookRecord.ReturnRecordUpdate();
             book.ReturnBook();
 
             await _bookRepository.UpdateAsync(book);
             await _bookRecordRepository.UpdateAsync(bookRecord);
             await _bookRecordRepository.SaveChangesAsync();
+
+            // TODO: add notification
         }
 
         private async Task<Book> GetBookById(Guid id)

@@ -24,6 +24,10 @@ namespace BookLibrary.API.Controllers
         /// <returns>success</returns>
         [HttpPost, AllowAnonymous]
         //[Authorize(Roles = "Admin")]
+        [ProducesResponseType(200, Type = typeof(ServiceResponse))]
+        [ProducesResponseType(400, Type = typeof(ServiceResponse))]
+        [ProducesResponseType(404, Type = typeof(ServiceResponse))]
+        [ProducesResponseType(500, Type = typeof(ServiceResponse))]
         public async Task<IActionResult> CreateUser([FromBody] AddUserRequest request)
         {
             var user = await _userService.CreateUser(request.Validate());

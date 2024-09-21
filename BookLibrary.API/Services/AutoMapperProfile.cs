@@ -16,8 +16,8 @@ namespace BookLibrary.API.Services
             CreateMap<Book, BookDto>();
             CreateMap<AddUserRequest, UserDto>();
             CreateMap<User, UserDto>();
-            CreateMap<Book, PaginatedList<BookDto>>();
-            CreateMap<BookDto, PaginatedList<Book>>();
+            //CreateMap<Book, PaginatedList<BookDto>>();
+            //CreateMap<BookDto, PaginatedList<Book>>();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace BookLibrary.API.Models
             RuleFor(x => x.BookId).NotEmpty();
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.ReturnDate).NotEmpty();
-            RuleFor(x => x.ReturnDate).GreaterThan(DateTime.Now);
+            RuleFor(x => x.ReturnDate.Date).GreaterThan(DateTime.Now.Date).WithMessage("ReturnDate must be in the future not today"); ;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BookLibrary.API.Models;
 using BookLibrary.API.Services;
 using BookLibrary.API.Services.Books;
+using BookLibrary.Domain.Aggregates.BookAggregate;
 using BookLibrary.Domain.DTOs;
 using BookLibrary.Domain.Shared;
 using Microsoft.AspNetCore.Authorization;
@@ -34,7 +35,7 @@ namespace BookLibrary.API.Controllers
         public async Task<IActionResult> AddBook([FromBody] AddBookRequest request)
         {
             var book = await _bookService.AddBook(request.Validate());
-            return Ok(book);
+            return Ok(new ServiceResponse<Book>("successfully added new book to library collection") { Data = book});
         }
 
         /// <summary>
@@ -43,14 +44,15 @@ namespace BookLibrary.API.Controllers
         /// <param name="request"></param>
         /// <returns>success</returns>
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(PaginatedList<BookDto>))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]
         [ProducesResponseType(500, Type = typeof(ServiceResponse))]
         public async Task<IActionResult> GetBooks([FromQuery] PaginationQuery query)
         {
-            var res = await _bookService.GetBooks(query);
-            return Ok(res);
+            var books = await _bookService.GetBooks(query);
+            return Ok(books);
         }
 
         /// <summary>
@@ -58,16 +60,16 @@ namespace BookLibrary.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns>success</returns>
-        [HttpPost, Route("Reserve")]
+        [HttpPost]
         [Authorize(Roles = "User")]
         [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]
         [ProducesResponseType(500, Type = typeof(ServiceResponse))]
-        public async Task<IActionResult> ReserveBooks([FromBody] ReserveBookRequest request)
+        public async Task<IActionResult> ReserveBook([FromBody] ReserveBookRequest request)
         {
             await _bookService.ReserveBook(request.Validate(), UserId);
-            return Ok("Book reserved successfully");
+            return Ok(new ServiceResponse("Book reserved successfully"));
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace BookLibrary.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns>success</returns>
-        [HttpPost, Route("Borrow")]
+        [HttpPost]
         //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
@@ -84,7 +86,7 @@ namespace BookLibrary.API.Controllers
         public async Task<IActionResult> BorrowBook([FromBody] BorrowBookRequest request)
         {
             await _bookService.BorrowBook(request.Validate());
-            return Ok("Book was borrowed successfully");
+            return Ok(new ServiceResponse("Book was borrowed successfully"));
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace BookLibrary.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns>success</returns>
-        [HttpPost, Route("Return")]
+        [HttpPost]
         //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
@@ -101,7 +103,7 @@ namespace BookLibrary.API.Controllers
         public async Task<IActionResult> ReturnBook([FromBody] ReturnBookRequest request)
         {
             await _bookService.ReturnBook(request.Validate());
-            return Ok("Book is now available to be reserved and borrowed by another user");
+            return Ok(new ServiceResponse("Book is now available to be reserved and borrowed by another user"));
         }
 
     }

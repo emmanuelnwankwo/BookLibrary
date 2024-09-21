@@ -32,7 +32,7 @@
             <param name="request"></param>
             <returns>success</returns>
         </member>
-        <member name="M:BookLibrary.API.Controllers.BookController.ReserveBooks(BookLibrary.API.Models.ReserveBookRequest)">
+        <member name="M:BookLibrary.API.Controllers.BookController.ReserveBook(BookLibrary.API.Models.ReserveBookRequest)">
             <summary>
             Reserve a book of interest from library collection
             </summary>
@@ -132,7 +132,7 @@
             </summary>
             <example></example>
         </member>
-        <member name="P:BookLibrary.API.Models.PaginationQuery.Search">
+        <member name="P:BookLibrary.API.Models.PaginationQuery.SearchTerm">
             <summary>
             Search book by title
             </summary>

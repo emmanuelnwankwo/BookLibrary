@@ -12,6 +12,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["BookLibrary.API/BookLibrary.API.csproj", "BookLibrary.API/"]
+COPY ["BookLibrary.Domain/BookLibrary.Domain.csproj", "BookLibrary.Domain/"]
+COPY ["BookLibrary.Infrastructure/BookLibrary.Infrastructure.csproj", "BookLibrary.Infrastructure/"]
 RUN dotnet restore "./BookLibrary.API/BookLibrary.API.csproj"
 COPY . .
 WORKDIR "/src/BookLibrary.API"

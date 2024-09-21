@@ -26,6 +26,6 @@ namespace BookLibrary.API.Models
         /// Search book by title
         /// </summary>
         /// <example></example>
-        public string? Search { get; set; }
+        public string? SearchTerm { get; set; }
     }
 }

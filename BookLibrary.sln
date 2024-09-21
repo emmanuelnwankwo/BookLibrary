@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLibrary.Domain", "BookL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLibrary.Infrastructure", "BookLibrary.Infrastructure\BookLibrary.Infrastructure.csproj", "{5F41EFE7-40A0-419D-BF17-39D365648522}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{28ADC8F3-362D-478B-B26B-3BFEF59EEFE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5F41EFE7-40A0-419D-BF17-39D365648522}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F41EFE7-40A0-419D-BF17-39D365648522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F41EFE7-40A0-419D-BF17-39D365648522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28ADC8F3-362D-478B-B26B-3BFEF59EEFE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28ADC8F3-362D-478B-B26B-3BFEF59EEFE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28ADC8F3-362D-478B-B26B-3BFEF59EEFE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28ADC8F3-362D-478B-B26B-3BFEF59EEFE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

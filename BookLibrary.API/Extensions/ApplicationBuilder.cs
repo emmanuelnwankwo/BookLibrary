@@ -1,4 +1,5 @@
 ﻿using BookLibrary.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookLibrary.API.Extensions
 {
@@ -10,6 +11,14 @@ namespace BookLibrary.API.Extensions
             var services = scope.ServiceProvider;
 
             SeedData.Initialize(services);
+        }
+
+        public static void ApplyMigration(this WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            using EFContext eFContext = scope.ServiceProvider.GetService<EFContext>();
+
+            eFContext.Database.Migrate();
         }
     }
 }

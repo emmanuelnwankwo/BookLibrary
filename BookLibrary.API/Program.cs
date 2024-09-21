@@ -79,6 +79,7 @@ namespace BookLibrary.API
 
 
             var app = builder.Build();
+            app.ApplyMigration();
             app.AddSeedData();
 
 

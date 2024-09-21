@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.ComponentModel.DataAnnotations;
-using BookLibrary.API.Services;
 
 namespace BookLibrary.API.Middleware
 {
@@ -25,6 +24,7 @@ namespace BookLibrary.API.Middleware
             }
 
             var code = HttpStatusCode.BadRequest;
+            string message = context.Exception.Message;
 
             if (context.Exception is NotFoundException)
             {
@@ -34,12 +34,16 @@ namespace BookLibrary.API.Middleware
             {
                 code = HttpStatusCode.InternalServerError;
             }
+            if (context.Exception is ArgumentNullException ex)
+            {
+                message = ex.ParamName;
+            }
 
             context.HttpContext.Response.ContentType = "application/json";
             context.HttpContext.Response.StatusCode = (int)code;
             context.Result = new JsonResult(new
             {
-                Message = context.Exception.Message,
+                Message = message,
             });
             
             //context.Result = new JsonResult(new

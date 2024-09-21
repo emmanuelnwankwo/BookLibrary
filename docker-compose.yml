@@ -1,0 +1,19 @@
+services:
+  booklibrary.api:
+    image: ${DOCKER_REGISTRY-}booklibraryapi
+    build:
+      context: .
+      dockerfile: BookLibrary.API/Dockerfile
+
+  booklibrary.dababase:
+    image: postgres:latest
+    container_name: booklibrary.database
+    environment:
+        - POSTGRES_DB=booklibrary
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+    volumes:
+        - ./.containers/booklibrary-db:/var/lib/postgresql/data
+    ports:
+        - 5432:5432
+

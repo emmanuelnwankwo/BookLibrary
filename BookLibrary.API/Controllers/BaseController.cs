@@ -20,37 +20,33 @@ namespace BookLibrary.API.Controllers
 
         private string GetUserEmail()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var email = identity.FindFirst(ClaimTypes.Email).Value;
-
-
-            if (string.IsNullOrEmpty(email))
-                throw new Exception("Unable to verify user");
+            var email = GetClaim(ClaimTypes.Email);
 
             return email;
         }
 
         private Guid GetUserId()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var userId = identity.FindFirst(ClaimTypes.NameIdentifier).Value; ;
-
-            if (string.IsNullOrEmpty(userId))
-                throw new Exception("Unable to verify user");
+            var userId = GetClaim(ClaimTypes.NameIdentifier);
 
             return Guid.Parse(userId);
         }
         
         private string GetUserRole()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var userRole = identity.FindFirst(ClaimTypes.Role).Value;
-
-
-            if (string.IsNullOrEmpty(userRole))
-                throw new Exception("Unable to verify user");
+            var userRole = GetClaim(ClaimTypes.Role);
 
             return userRole;
+        }
+
+        private string GetClaim(string claim)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var data = identity.FindFirst(claim).Value;
+            if (string.IsNullOrEmpty(data))
+                throw new ArgumentNullException("Unable to verify user");
+
+            return data;
         }
 
         protected IActionResult ServiceRespons<T>(ServiceResponse<T> serviceResponse) where T : class
