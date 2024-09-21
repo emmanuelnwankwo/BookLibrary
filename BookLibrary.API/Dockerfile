@@ -16,8 +16,8 @@ COPY ["BookLibrary.API/BookLibrary.API.csproj", "BookLibrary.API/"]
 COPY ["BookLibrary.Domain/BookLibrary.Domain.csproj", "BookLibrary.Domain/"]
 COPY ["BookLibrary.Infrastructure/BookLibrary.Infrastructure.csproj", "BookLibrary.Infrastructure/"]
 RUN dotnet restore "./BookLibrary.API/BookLibrary.API.csproj"
-WORKDIR "/src/BookLibrary.API"
 COPY . .
+WORKDIR "/src/BookLibrary.API"
 RUN dotnet build "./BookLibrary.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
