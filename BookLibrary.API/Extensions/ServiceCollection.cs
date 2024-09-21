@@ -1,4 +1,5 @@
 ﻿using BookLibrary.API.Models;
+using BookLibrary.API.Models.Users;
 using BookLibrary.API.Services.Books;
 using BookLibrary.API.Services.Users;
 using BookLibrary.Domain.Aggregates.BookAggregate;
@@ -6,13 +7,14 @@ using BookLibrary.Domain.Aggregates.BookRecordAggregate;
 using BookLibrary.Domain.Aggregates.ReservationAggregate;
 using BookLibrary.Domain.Aggregates.UserAggregate;
 using BookLibrary.Domain.SeedWork;
+using BookLibrary.Domain.Shared;
 using BookLibrary.Infrastructure;
 using BookLibrary.Infrastructure.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace BookLibrary.API.Extensions
@@ -45,9 +47,10 @@ namespace BookLibrary.API.Extensions
         {
             return services
                 .AddScoped<IBookService, BookService>()
-                .AddScoped<IUserService, UserService>();
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IAuthService, AuthService>();
         }
-        
+
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             return services
@@ -63,12 +66,20 @@ namespace BookLibrary.API.Extensions
                     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BookLibrary.Api.xml"));
                 });
         }
-        
+
         public static IServiceCollection AddFluentValidators(this IServiceCollection services)
         {
             return services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters()
-                .AddValidatorsFromAssemblyContaining<AddBookRequestValidator>();
+                .AddValidatorsFromAssemblyContaining<AddBookRequestValidator>()
+                .AddValidatorsFromAssemblyContaining<AddUserRequestValidator>()
+                .AddValidatorsFromAssemblyContaining<BorrowBookRequestValidator>()
+                .AddValidatorsFromAssemblyContaining<ReturnBookRequestValidator>();
+        }
+
+        public static IServiceCollection AddAppSetting(this IServiceCollection services, IConfiguration configuration)
+        {
+            return services.Configure<GeneralConfig>(configuration.GetSection("GeneralConfig"));
         }
 
     }

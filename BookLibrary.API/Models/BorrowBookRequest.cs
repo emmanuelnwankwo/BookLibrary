@@ -1,4 +1,7 @@
-﻿namespace BookLibrary.API.Models
+﻿using BookLibrary.API.Services;
+using FluentValidation;
+
+namespace BookLibrary.API.Models
 {
     public class BorrowBookRequest
     {
@@ -11,7 +14,7 @@
         /// <summary>
         /// Customer email address
         /// </summary>
-        /// <example>test@gmail.com</example>
+        /// <example>john.doe@example.com</example>
         public string Email { get; set; }
 
         /// <summary>
@@ -19,5 +22,25 @@
         /// </summary>
         /// <example>2024-09-24</example>
         public DateTime ReturnDate { get; set; }
+
+        public BorrowBookRequest Validate()
+        {
+            var requestValidator = new BorrowBookRequestValidator();
+            var validationResponse = requestValidator.Validate(this);
+            if (!validationResponse.IsValid) throw new ValidationException(validationResponse.ToString(" ~ "));
+            return this;
+        }
+    }
+
+    public class BorrowBookRequestValidator : AbstractValidator<BorrowBookRequest>
+    {
+        public BorrowBookRequestValidator()
+        {
+            RuleFor(x => x.BookId).NotEmpty();
+            //RuleFor(x => x.BookId).Must(x => ServiceConstants.CheckGuidValue(x)).WithMessage("Invalid bookId");
+            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.ReturnDate).NotEmpty();
+            RuleFor(x => x.ReturnDate).GreaterThan(DateTime.Now);
+        }
     }
 }

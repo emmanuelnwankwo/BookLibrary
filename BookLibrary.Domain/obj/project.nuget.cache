@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "iW8YueutOck=",
+  "dgSpecHash": "mbHMJGrn4aM=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Interview\\BookLibrary\\BookLibrary.Domain\\BookLibrary.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\emman\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

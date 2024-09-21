@@ -1,11 +1,12 @@
-﻿using BookLibrary.Domain.DTOs;
+﻿using BCrypt.Net;
+using BookLibrary.Domain.DTOs;
 using BookLibrary.Domain.SeedWork;
 
 namespace BookLibrary.Domain.Aggregates.UserAggregate
 {
     public partial class User : IAggregateRoot
     {
-        public User Add(UserDto user)
+        public User AddUser(UserDto user)
         {
             var newUser = new User
             {
@@ -13,14 +14,18 @@ namespace BookLibrary.Domain.Aggregates.UserAggregate
                 Name = user.Name,
                 Role = user.Role,
             };
-            SetPassword(user.Password);
             return newUser;
         }
 
         public void SetPassword(string password) 
-        { 
-            // TODO: Hash password logic here
-            Password = password;
+        {
+            var passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(password, HashType.SHA512);
+            Password = passwordHash;
+        }
+
+        public bool VerifyPassword(string password) 
+        {
+            return BCrypt.Net.BCrypt.EnhancedVerify(password, Password, HashType.SHA512);
         }
     }
 }

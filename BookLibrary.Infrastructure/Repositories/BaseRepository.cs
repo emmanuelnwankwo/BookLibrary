@@ -19,7 +19,7 @@ namespace BookLibrary.Infrastructure.Repositories
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
             return entity;
@@ -50,22 +50,6 @@ namespace BookLibrary.Infrastructure.Repositories
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             return _dbContext.SaveChangesAsync();
-        }
-
-        protected string ToPaged(int pageIndex = 1, int pageSize = 10)
-        {
-            int skip = pageSize * (pageIndex - 1);
-            AddSqlParameters("@Skip", skip);
-            AddSqlParameters("@PageSize", pageSize);
-            return " OFFSET @Skip ROWS FETCH NEXT @PageSize ROWS ONLY";
-        }
-
-        protected void AddSqlParameters(string key, object value)
-        {
-            if (sqlParameters == null)
-                sqlParameters = new Dictionary<string, object>();
-
-            sqlParameters.Add(key, value);
         }
 
         private async Task<PaginatedList<TEntity>> GetAllAsync<T>(int pageIndex, int pageSize, Expression<Func<TEntity, T>> keySelector,
@@ -105,5 +89,20 @@ namespace BookLibrary.Infrastructure.Repositories
             return await GetAllAsync(pageIndex, pageSize, keySelector, null, orderBy);
         }
 
+        //public async Task<PaginatedList<TEntity>> UpdateAsync(int pageIndex, int pageSize, OrderBy orderBy, Expression<Func<TEntity, object>>[] includeProperties)
+        //{
+
+        //    var entities = IncludeProperties(includeProperties);
+        //    entities = (predicate != null) ? entities.Where(predicate) : entities;
+        //    entities = (orderBy == OrderBy.Ascending)
+        //        ? entities.OrderBy(keySelector)
+        //        : entities.OrderByDescending(keySelector);
+
+
+        //    var total = await entities.CountAsync();
+        //    entities = entities.Paginate(pageIndex, pageSize);
+        //    var list = await entities.ToListAsync();
+        //    return list.ToPaginatedList(pageIndex, pageSize, total);
+        //}
     }
 }

@@ -111,3 +111,13 @@ C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\AutoMapper.dl
 C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\FluentValidation.dll
 C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\obj\Debug\net8.0\BookLibrary.API.sourcelink.json
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

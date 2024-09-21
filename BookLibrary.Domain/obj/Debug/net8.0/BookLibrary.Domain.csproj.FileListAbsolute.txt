@@ -9,3 +9,5 @@ C:\Projects\Interview\BookLibrary\BookLibrary.Domain\obj\Debug\net8.0\BookLibrar
 C:\Projects\Interview\BookLibrary\BookLibrary.Domain\obj\Debug\net8.0\refint\BookLibrary.Domain.dll
 C:\Projects\Interview\BookLibrary\BookLibrary.Domain\obj\Debug\net8.0\BookLibrary.Domain.pdb
 C:\Projects\Interview\BookLibrary\BookLibrary.Domain\obj\Debug\net8.0\ref\BookLibrary.Domain.dll
+C:\Projects\Interview\BookLibrary\BookLibrary.Domain\obj\Debug\net8.0\BookLibrary.Domain.csproj.AssemblyReference.cache
+C:\Projects\Interview\BookLibrary\BookLibrary.Domain\obj\Debug\net8.0\BookLibrary.Domain.sourcelink.json

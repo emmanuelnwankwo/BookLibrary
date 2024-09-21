@@ -40,6 +40,14 @@ namespace BookLibrary.API.Models
         /// </summary>
         /// <example>2020-01-01</example>
         public DateTime DatePublished { get; set; }
+
+        public AddBookRequest Validate()
+        {
+            var requestValidator = new AddBookRequestValidator();
+            var validationResponse = requestValidator.Validate(this);
+            if (!validationResponse.IsValid) throw new ValidationException(validationResponse.ToString(" ~ "));
+            return this;
+        }
     }
 
     public class AddBookRequestValidator : AbstractValidator<AddBookRequest>

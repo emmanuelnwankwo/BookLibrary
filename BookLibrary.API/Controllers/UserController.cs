@@ -1,43 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookLibrary.API.Models.Users;
+using BookLibrary.API.Services;
+using BookLibrary.API.Services.Users;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookLibrary.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    [Route("api/[controller]/[action]")]
+    [ApiController, Authorize]
+    public class UserController : BaseController
     {
-        // GET: api/<UserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IUserService _userService;
+        public UserController(ILogger<BaseController> logger, IUserService userService): base(logger)
         {
-            return new string[] { "value1", "value2" };
+            _userService = userService;
         }
 
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// <summary>
+        /// Create new user data
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>success</returns>
+        [HttpPost, AllowAnonymous]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateUser([FromBody] AddUserRequest request)
         {
-            return "value";
+            var user = await _userService.CreateUser(request.Validate());
+            return StatusCode(201, user);
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

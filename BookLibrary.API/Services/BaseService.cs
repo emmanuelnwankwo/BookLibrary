@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using BookLibrary.Domain.Aggregates.UserAggregate;
 using BookLibrary.Domain.SeedWork;
+using System.Security.Claims;
 
 namespace BookLibrary.API.Services
 {
@@ -15,6 +17,4 @@ namespace BookLibrary.API.Services
             _mapper = mapper;
         }
     }
-
-
 }

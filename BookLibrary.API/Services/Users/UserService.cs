@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using BookLibrary.API.Models.Users;
 using BookLibrary.Domain.Aggregates.UserAggregate;
-using BookLibrary.Domain.SeedWork;
+using BookLibrary.Domain.DTOs;
+using static BookLibrary.Domain.Shared.Enums;
 
 namespace BookLibrary.API.Services.Users
 {
@@ -13,7 +15,7 @@ namespace BookLibrary.API.Services.Users
             _userRepository = userRepository;
         }
 
-        public async Task<User> GetUser(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
             var user = await _userRepository.GetAsync(x => x.Email == email);
             if (user == null)
@@ -21,6 +23,26 @@ namespace BookLibrary.API.Services.Users
                 throw new ArgumentNullException("User not found");
             }
             return user;
+        }
+
+        public async Task<UserDto> CreateUser(AddUserRequest request)
+        {
+            var userExist = await _userRepository.GetAsync(x => x.Email == request.Email);
+
+            if (userExist != null)
+                throw new ArgumentNullException("User already exist");
+
+            var userInst = new User();
+            var userDto = _mapper.Map<UserDto>(request);
+            userDto.Role = UserRole.User;
+
+            var user = userInst.AddUser(userDto);
+            user.SetPassword(request.Password);
+
+            await _userRepository.InsertAsync(user);
+            await _userRepository.SaveChangesAsync();
+
+            return userDto;
         }
     }
 }

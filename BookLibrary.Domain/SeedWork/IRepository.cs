@@ -6,7 +6,7 @@ namespace BookLibrary.Domain.SeedWork
     public interface IRepository<TEntity> where TEntity : Entity
     {
         //IUnitOfWork UnitOfWork { get; }
-        Task<TEntity> AddAsync(TEntity entity);
+        Task<TEntity> InsertAsync(TEntity entity);
 
         Task<TEntity> UpdateAsync(TEntity entity);
 

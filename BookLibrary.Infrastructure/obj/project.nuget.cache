@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "l43CHSU/xIY=",
+  "dgSpecHash": "5++xka52aMI=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Interview\\BookLibrary\\BookLibrary.Infrastructure\\BookLibrary.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\emman\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",

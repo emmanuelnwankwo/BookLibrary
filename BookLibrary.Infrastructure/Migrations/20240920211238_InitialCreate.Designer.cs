@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookLibrary.Infrastructure.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20240920114152_InitialCreate")]
+    [Migration("20240920211238_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -52,8 +52,9 @@ namespace BookLibrary.Infrastructure.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
-                    b.Property<int>("Genre")
-                        .HasColumnType("integer");
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Status")
                         .IsRequired()

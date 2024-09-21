@@ -49,8 +49,9 @@ namespace BookLibrary.Infrastructure.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
-                    b.Property<int>("Genre")
-                        .HasColumnType("integer");
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Status")
                         .IsRequired()

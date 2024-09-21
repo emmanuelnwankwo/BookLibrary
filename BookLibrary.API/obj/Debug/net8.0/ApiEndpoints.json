@@ -1,28 +1,34 @@
 [
   {
-    "ContainingType": "BookLibrary.API.Controllers.BookController",
+    "ContainingType": "BookLibrary.API.Controllers.AuthController",
     "Method": "Ping",
-    "RelativePath": "api/Book",
+    "RelativePath": "api/Auth",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BookLibrary.API.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "request",
+        "Type": "BookLibrary.API.Models.Users.LoginRequest",
+        "IsRequired": true
       }
-    ]
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "BookLibrary.API.Controllers.BookController",
     "Method": "AddBook",
-    "RelativePath": "api/Book",
+    "RelativePath": "api/Book/AddBook",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -33,12 +39,49 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "BookLibrary.API.Controllers.BookController",
     "Method": "BorrowBook",
-    "RelativePath": "api/Book/Borrow",
+    "RelativePath": "api/Book/BorrowBook/Borrow",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -53,8 +96,39 @@
   },
   {
     "ContainingType": "BookLibrary.API.Controllers.BookController",
+    "Method": "GetBooks",
+    "RelativePath": "api/Book/GetBooks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "OrderBy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Search",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BookLibrary.API.Controllers.BookController",
     "Method": "ReserveBooks",
-    "RelativePath": "api/Book/Reserve",
+    "RelativePath": "api/Book/ReserveBooks/Reserve",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -65,12 +139,49 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      },
+      {
+        "Type": "BookLibrary.API.Services.ServiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 500
+      }
+    ]
   },
   {
     "ContainingType": "BookLibrary.API.Controllers.BookController",
     "Method": "ReturnBook",
-    "RelativePath": "api/Book/Return",
+    "RelativePath": "api/Book/ReturnBook/Return",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -85,50 +196,24 @@
   },
   {
     "ContainingType": "BookLibrary.API.Controllers.UserController",
-    "Method": "Get",
-    "RelativePath": "api/User",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "BookLibrary.API.Controllers.UserController",
-    "Method": "Post",
-    "RelativePath": "api/User",
+    "Method": "CreateUser",
+    "RelativePath": "api/User/CreateUser",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "value",
-        "Type": "System.String",
+        "Name": "request",
+        "Type": "BookLibrary.API.Models.Users.AddUserRequest",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "BookLibrary.API.Controllers.UserController",
     "Method": "Get",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/User/Get/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -147,55 +232,6 @@
           "application/json",
           "text/json"
         ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "BookLibrary.API.Controllers.UserController",
-    "Method": "Put",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "value",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "BookLibrary.API.Controllers.UserController",
-    "Method": "Delete",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
         "StatusCode": 200
       }
     ]

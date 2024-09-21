@@ -4,9 +4,30 @@
         <name>BookLibrary.API</name>
     </assembly>
     <members>
+        <member name="M:BookLibrary.API.Controllers.AuthController.Ping">
+            <summary>
+            Test API health
+            </summary>
+            <param></param>
+            <returns></returns>
+        </member>
+        <member name="M:BookLibrary.API.Controllers.AuthController.Login(BookLibrary.API.Models.Users.LoginRequest)">
+            <summary>
+            Login existing user
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="M:BookLibrary.API.Controllers.BookController.AddBook(BookLibrary.API.Models.AddBookRequest)">
             <summary>
             Add new book to library collection
+            </summary>
+            <param name="request"></param>
+            <returns>success</returns>
+        </member>
+        <member name="M:BookLibrary.API.Controllers.BookController.GetBooks(BookLibrary.API.Models.PaginationQuery)">
+            <summary>
+            Get books from library collection
             </summary>
             <param name="request"></param>
             <returns>success</returns>
@@ -28,6 +49,13 @@
         <member name="M:BookLibrary.API.Controllers.BookController.ReturnBook(BookLibrary.API.Models.ReturnBookRequest)">
             <summary>
             Return a borrowed book
+            </summary>
+            <param name="request"></param>
+            <returns>success</returns>
+        </member>
+        <member name="M:BookLibrary.API.Controllers.UserController.CreateUser(BookLibrary.API.Models.Users.AddUserRequest)">
+            <summary>
+            Create new user data
             </summary>
             <param name="request"></param>
             <returns>success</returns>
@@ -78,13 +106,37 @@
             <summary>
             Customer email address
             </summary>
-            <example>test@gmail.com</example>
+            <example>john.doe@example.com</example>
         </member>
         <member name="P:BookLibrary.API.Models.BorrowBookRequest.ReturnDate">
             <summary>
             Expected book return date
             </summary>
             <example>2024-09-24</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.PaginationQuery.PageSize">
+            <summary>
+            Page size
+            </summary>
+            <example>10</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.PaginationQuery.PageIndex">
+            <summary>
+            Page index
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.PaginationQuery.OrderBy">
+            <summary>
+            Order by book title
+            </summary>
+            <example></example>
+        </member>
+        <member name="P:BookLibrary.API.Models.PaginationQuery.Search">
+            <summary>
+            Search book by title
+            </summary>
+            <example></example>
         </member>
         <member name="P:BookLibrary.API.Models.ReserveBookRequest.BookId">
             <summary>
@@ -102,7 +154,37 @@
             <summary>
             Customer email address
             </summary>
-            <example>test@gmail.com</example>
+            <example>john.doe@example.com</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.Users.AddUserRequest.Email">
+            <summary>
+            User email 
+            </summary>
+            <example>john.doe@example.com</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.Users.AddUserRequest.Name">
+            <summary>
+            User full name
+            </summary>
+            <example>John Doe</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.Users.AddUserRequest.Password">
+            <summary>
+            User password
+            </summary>
+            <example>Password123</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.Users.LoginRequest.Email">
+            <summary>
+            User email 
+            </summary>
+            <example>john.doe@example.com</example>
+        </member>
+        <member name="P:BookLibrary.API.Models.Users.LoginRequest.Password">
+            <summary>
+            User password
+            </summary>
+            <example>Password123</example>
         </member>
     </members>
 </doc>

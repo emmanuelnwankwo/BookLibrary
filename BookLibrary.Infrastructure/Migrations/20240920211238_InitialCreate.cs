@@ -22,7 +22,7 @@ namespace BookLibrary.Infrastructure.Migrations
                     CoverPictureUrl = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
                     DatePublished = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    Genre = table.Column<int>(type: "integer", nullable: false),
+                    Genre = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
