@@ -11,7 +11,7 @@ EXPOSE 8081
 ARG DB_CONNECTION_STRING
 
 # Environment variable for DB_CONNECTION_STRING
-#ENV ConnectionStrings__BookLibraryDb=$DB_CONNECTION_STRING
+ENV ConnectionStrings__BookLibraryDb=$DB_CONNECTION_STRING
 
 
 # This stage is used to build the service project
