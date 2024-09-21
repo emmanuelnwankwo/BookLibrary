@@ -23,6 +23,7 @@ namespace BookLibrary.API.Controllers
         /// <param></param>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(ServiceResponse))]
         public IActionResult Ping()
         {
             return Ok(new ServiceResponse("AuthController Up!!!"));
