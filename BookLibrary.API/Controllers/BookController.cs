@@ -44,7 +44,6 @@ namespace BookLibrary.API.Controllers
         /// <param name="request"></param>
         /// <returns>success</returns>
         [HttpGet]
-        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(PaginatedList<BookDto>))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]

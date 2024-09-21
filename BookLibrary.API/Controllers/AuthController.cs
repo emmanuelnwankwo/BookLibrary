@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookLibrary.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController, AllowAnonymous]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly IAuthService _authService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(ILogger<AuthController> logger, IAuthService authService): base(logger)
         {
                 _authService = authService;
         }
@@ -25,7 +25,7 @@ namespace BookLibrary.API.Controllers
         [HttpGet]
         public IActionResult Ping()
         {
-            return Ok("AuthController Up!!!");
+            return Ok(new ServiceResponse("AuthController Up!!!"));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace BookLibrary.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost, Route("Login")]
+        [HttpPost]
         [ProducesResponseType(200, Type = typeof(LoginResponse))]
         [ProducesResponseType(400, Type = typeof(ServiceResponse))]
         [ProducesResponseType(404, Type = typeof(ServiceResponse))]
