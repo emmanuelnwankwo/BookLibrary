@@ -26,7 +26,11 @@ namespace BookLibrary.API
             builder.Services.AddBusinessServices();
             builder.Services.AddFluentValidators();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddControllers(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)));
+            builder.Services.AddControllers(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
+                            .ConfigureApiBehaviorOptions(options =>
+                            {
+                                options.SuppressModelStateInvalidFilter = true;
+                            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -75,6 +79,7 @@ namespace BookLibrary.API
 
 
             var app = builder.Build();
+            app.AddSeedData();
 
 
             // Configure the HTTP request pipeline.

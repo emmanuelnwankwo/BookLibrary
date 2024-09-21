@@ -4,12 +4,12 @@ namespace BookLibrary.API.Extensions
 {
     public static class ApplicationBuilder
     {
-        //public static IServiceCollection AddSeedData(this WebApplication app)
-        //{
-        //    using var scope = app.Services.CreateScope();
-        //    var services = scope.ServiceProvider;
+        public static void AddSeedData(this WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
 
-        //    SeedData.Initialize(services);
-        //}
+            SeedData.Initialize(services);
+        }
     }
 }

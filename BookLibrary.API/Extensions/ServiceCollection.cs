@@ -74,7 +74,8 @@ namespace BookLibrary.API.Extensions
                 .AddValidatorsFromAssemblyContaining<AddBookRequestValidator>()
                 .AddValidatorsFromAssemblyContaining<AddUserRequestValidator>()
                 .AddValidatorsFromAssemblyContaining<BorrowBookRequestValidator>()
-                .AddValidatorsFromAssemblyContaining<ReturnBookRequestValidator>();
+                .AddValidatorsFromAssemblyContaining<ReturnBookRequestValidator>()
+                .AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
         }
 
         public static IServiceCollection AddAppSetting(this IServiceCollection services, IConfiguration configuration)

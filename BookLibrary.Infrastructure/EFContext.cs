@@ -2,6 +2,7 @@
 using BookLibrary.Domain.Aggregates.BookRecordAggregate;
 using BookLibrary.Domain.Aggregates.ReservationAggregate;
 using BookLibrary.Domain.Aggregates.UserAggregate;
+using BookLibrary.Domain.DTOs;
 using BookLibrary.Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
@@ -61,6 +62,7 @@ namespace BookLibrary.Infrastructure
             modelBuilder.Entity<BookRecord>()
                 .Property(p => p.Status)
                 .HasConversion<string>();
+
         }
     }
 

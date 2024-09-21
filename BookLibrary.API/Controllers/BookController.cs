@@ -20,7 +20,6 @@ namespace BookLibrary.API.Controllers
         }
 
         
-
         /// <summary>
         /// Add new book to library collection
         /// </summary>

@@ -28,6 +28,7 @@ namespace BookLibrary.API.Models
             var requestValidator = new BorrowBookRequestValidator();
             var validationResponse = requestValidator.Validate(this);
             if (!validationResponse.IsValid) throw new ValidationException(validationResponse.ToString(" ~ "));
+            ServiceConstants.ValidateId(BookId, nameof(BookId));
             return this;
         }
     }
@@ -37,7 +38,6 @@ namespace BookLibrary.API.Models
         public BorrowBookRequestValidator()
         {
             RuleFor(x => x.BookId).NotEmpty();
-            //RuleFor(x => x.BookId).Must(x => ServiceConstants.CheckGuidValue(x)).WithMessage("Invalid bookId");
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.ReturnDate).NotEmpty();
             RuleFor(x => x.ReturnDate).GreaterThan(DateTime.Now);
