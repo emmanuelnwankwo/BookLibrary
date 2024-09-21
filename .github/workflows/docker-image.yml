@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Buildx
+      - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
         
@@ -29,4 +29,4 @@ jobs:
           context: .
           file: ./BookLibrary.API/Dockerfile 
           push: true
-          tags: dockerhub-username/new-repo:tagname
+          tags: enwankwo/booklibrary:latest
