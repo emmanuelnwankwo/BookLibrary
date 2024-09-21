@@ -17,6 +17,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Reflection;
 
 namespace BookLibrary.API.Extensions
 {
@@ -41,7 +42,6 @@ namespace BookLibrary.API.Extensions
 
         public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            var rr = configuration.GetConnectionString("BookLibraryDb");
             return services.AddDbContext<EFContext>(options =>
                      options.UseNpgsql(configuration.GetConnectionString("BookLibraryDb")));
         }
@@ -65,7 +65,8 @@ namespace BookLibrary.API.Extensions
                         Version = "v1",
                         Contact = new OpenApiContact { Name = "Book" }
                     });
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BookLibrary.Api.xml"));
+                    //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "BookLibrary.Api.xml"));
+                    c.IncludeXmlComments(GetXmlCommentPath());
                 });
         }
 
@@ -101,5 +102,11 @@ namespace BookLibrary.API.Extensions
                      .AddEnvironmentVariables();
         }
 
+        static string GetXmlCommentPath()
+        {
+            var basePath = AppContext.BaseDirectory;
+            var fileName = typeof(Program).GetTypeInfo().Assembly.GetName().Name + ".xml";
+            return Path.Combine(basePath, fileName);
+        }
     }
 }
