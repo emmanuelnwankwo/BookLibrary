@@ -7,6 +7,12 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+# Set build argument
+ARG DB_CONNECTION_STRING
+
+# Environment variable for DefaultConnection
+ENV ConnectionStrings__BookLibraryDb=$DB_CONNECTION_STRING
+
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
