@@ -26,7 +26,7 @@ Book Library API is hosted on Render at [Docs](https://booklibrary-1-2twv.onrend
 ### Running the Project Locally
 1. Clone the repository
 ```bash
-    git clone https://github.com/your-repo/library-management-api.git
+    git clone https://github.com/emmanuelnwankwo/BookLibrary
 ```
 2. Open project on your IDE (Visual Studio or Visual Studio Code)
 3. Restore the required dependencies
