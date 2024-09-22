@@ -58,3 +58,16 @@ POSTGRES_USER: <postgres>
 POSTGRES_PASSWORD: <postgres>.
 ```
 
+## Admin
+Admin credentials to access the following APIs. The Admin details are seeded on project first startup.
+- CreateUser
+- AddBook
+- BorrowBook
+- ReturnBook
+
+```json
+    {
+        "email": "admin@example.com",
+        "password": "Password123"
+    }
+```
